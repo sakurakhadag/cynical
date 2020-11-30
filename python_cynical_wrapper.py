@@ -43,11 +43,11 @@ def cynical_selection(repr_lines, avail_lines, seed_lines=[],
     #Check that the cyncial_perl_script exists and can be executed.
 
 # Uncomment if you're using this as a pointer to a local script rather than something on the shell path
-#    if not os.path.exists(cynical_perl_script):
-#        raise FileNotFoundError("Path for cynical_perl_script does not exist!")
+    if not os.path.exists(cynical_perl_script):
+        raise FileNotFoundError("Path for cynical_perl_script does not exist!")
 
     if shutil.which(cynical_perl_script) == None:
-        raise PermissionError("cynical_perl_script is not  executible...")
+        raise PermissionError("cynical_perl_script is not executible...")
 
     # Set up the directory where we’re going to work (if it doesn’t exist)...
     os.makedirs(outdir, mode=0o777, exist_ok=True)
@@ -152,7 +152,7 @@ def cynical_selection(repr_lines, avail_lines, seed_lines=[],
     del repr_lines
     del seed_lines
     
-    jaded_file = os.path.join(outdir, "/jaded.output")
+    jaded_file = os.path.join(outdir, "jaded.output")
 
     #Now begins the process of writing up our command-line arguments for calling the thing
     #shlex says we want our calls to look like this:
@@ -364,7 +364,7 @@ def main():
     args = parser.parse_args()
     
     # Give the cyncial selection function file objects so that we don't read whole corpora into memory
-    sys.stderr.write("Opening files at {}".format(get_timestamp()))
+    sys.stderr.write("Opening files at {}\n".format(get_timestamp()))
     with open(args.repr, 'r', encoding='utf-8') as repr_file, open(args.repr, 'r', encoding='utf-8') as avail_file:
         if args.seed:
             seed_file = open(args.seed, 'r', encoding='utf-8')
